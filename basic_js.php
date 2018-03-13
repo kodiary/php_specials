@@ -20,7 +20,7 @@
 
 	<script type="text/javascript">
 		$(function(){
-			$('.anc').hover(function(){
+			$('.anc').click(function(){
 				$('#mydiv').hide();
 			})
 		});
@@ -33,7 +33,15 @@
 	<script type="text/javascript">
 		$(function(){
 			$('.anc').click(function(){
-				$('.mydiv').prepend('This is a text<br/>');
+				$.ajax({
+					url: 'test_ajax.php',
+					data: 'name=Anwar&gender=male',
+					type: 'post',
+					success: function(res)
+					{
+						alert(res);
+					}
+				})
 			})
 		})
 	</script>
