@@ -17,15 +17,59 @@ class Inc{
 	}
 	public function update($tbl,$id,$arr)
 	{
+		//"UPDATE news SET title='adfa',description='adfadf',author='adfa' WHERE id = 1";
 
+		$q = "UPDATE ".$tbl." SET ";
+		$set = '';
+		foreach($arr as $k=>$v)
+		{
+			if($set == '')
+			{
+				$set = $k."='".$v."'";
+			}
+			else
+			{
+				$set = $set.','.$k."='".$v."'";
+			}
+		}
+		$q = $q.$set." WHERE id = ".$id;
+		$this->query($q);
 	}
 	public function insert($tbl,$arr)
 	{
+		$q = "INSERT INTO ".$tbl." (";
+		$fields = '';//title,description,author
+		$values = '';//'Sample title','Sample description','Anwar Ali'
+		foreach($arr as $k=>$v)
+		{
+			if($fields=='')
+			{
+				$fields = $k;
+			}
+			else
+			{
+				$fields = $fields.','.$k;
+			}
+
+			if($values=='')
+			{
+				$values = "'".$v."'";
+			}
+			else
+			{
+				$values = $values.",'".$v."'";
+			}
+		}
+		$q = $q.$fields.') VALUES('.$values.')';
+		$this->query($q);
 
 	}
-	public function select($tbl)
+	public function select($tbl,$cond='')
 	{
-		$q = "SELECT * FROM ".$tbl;
+		if($cond=='')
+			$q = "SELECT * FROM ".$tbl;
+		else
+			$q = "SELECT * FROM ".$tbl." WHERE ".$cond; 
 		$result = $this->query($q);
 		return $result;
 	}
@@ -40,6 +84,11 @@ class Inc{
 	public function redirect($url)
 	{
 		header('Location:'.$url);
+	}
+	public function clean($str)
+	{
+		$str = trim($str);
+		return mysqli_real_escape_string($this->link,$str);
 	}
 
 }

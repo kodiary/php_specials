@@ -16,7 +16,7 @@ $obj = new Inc();
 		{
 			?>
 			<h1>News Listing</h1>
-			<a href="#" class="btn btn-info">Add New News</a>
+			<a href="add_news_form.php" class="btn btn-info">Add New News</a>
 			<hr>
 			<table class="table table-bordered">
 				<tr>
@@ -31,7 +31,7 @@ $obj = new Inc();
 					<tr>
 						<td><?php echo $row->title;?></td>
 						<td><?php echo substr($row->description,0,50).'...';?></td>
-						<td><a href="#" class="btn btn-primary">Edit</a> <a href="delete_news.php?id=<?php echo $row->id;?>" class="btn btn-danger">Delete</a></td>
+						<td><a href="edit_news_form.php?id=<?php echo $row->id;?>" class="btn btn-primary">Edit</a> <a href="delete_news.php?id=<?php echo $row->id;?>" class="btn btn-danger">Delete</a></td>
 					</tr>
 					<?php
 				}
